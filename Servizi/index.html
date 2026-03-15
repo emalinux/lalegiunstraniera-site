@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+	<script type="text/javascript">
+				(function(d) {
+			var ciCollectedCookies = [];
+			var cookieDesc =
+				Object.getOwnPropertyDescriptor(Document.prototype, 'cookie') ||
+				Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
+
+			var storage = null;
+			function checkStorage() {
+				if (storage === null) {
+					var whitelist = ['__cookie_law__', 'PHPSESSID'];
+					var cookies = JSON.parse(localStorage.getItem('allowedCookies') || '[]');
+					cookies = cookies.map(cookie => {
+						if (cookie.indexOf('*') >= 0) {
+							return new RegExp(cookie.replace('*', '.+'));
+						}
+						return cookie;
+					});
+					storage = [].concat.apply(whitelist, cookies);
+				}
+				return storage;
+			}
+			d.cookieIsAllowed = function (c) {
+				var all = checkStorage();
+				for (const idx in all) {
+					if (all[idx] instanceof RegExp && all[idx].test(c)) return true;
+					if (all[idx] === c) return true;
+				}
+			}
+
+			if (cookieDesc && cookieDesc.configurable) {
+				Object.defineProperty(d, 'cookie', {
+					get: function() {
+						return cookieDesc.get.call(d);
+					},
+					set: function(val) {
+						if (val.indexOf('__cookie_law__') >= 0) {
+							cookieDesc.set.call(d, val);
+							return;
+						}
+
+						var cookie_law = document.cookie.match(/(?:^|;\ *)__cookie_law__=(0|1)/);
+						if (cookie_law !== null) {
+							cookie_law = cookie_law[1];
+						}
+
+						// Only if cookie accept enabled
+						if (cookie_law == 1) {
+							var c = val.split('=')[0];
+							// cookie marked for removal
+							if (val[0] === '!') {
+								cookieDesc.set.call(d, val.slice(1));
+							} else if (!localStorage.getItem('allowedCookies') || d.cookieIsAllowed(c) >= 0) {
+								cookieDesc.set.call(d, val);
+							}
+						}
+						else if (cookie_law === null && ciCollectedCookies.indexOf(val) < 0) {
+							ciCollectedCookies.push(val);
+						}
+					}
+				});
+			}
+			d.cookieChangedCategories = function (cookieLaw, allowedCookies = null) {
+				if (window.gtag) {
+					var opts = {
+						'ad_storage': !!cookieLaw && (!Array.isArray(allowedCookies) || allowedCookies.indexOf('gtag:ad_storage') >= 0) ? 'granted' : 'denied',
+						'ad_user_data': !!cookieLaw && (!Array.isArray(allowedCookies) || allowedCookies.indexOf('gtag:ad_user_data') >= 0) ? 'granted' : 'denied',
+						'ad_personalization': !!cookieLaw && (!Array.isArray(allowedCookies) || allowedCookies.indexOf('gtag:ad_personalization') >= 0) ? 'granted' : 'denied',
+						'analytics_storage': !!cookieLaw && (!Array.isArray(allowedCookies) || allowedCookies.indexOf('gtag:analytics_storage') >= 0) ? 'granted' : 'denied',
+					};
+					gtag('consent', 'update', opts);
+					if (!!cookieLaw && Array.isArray(allowedCookies) && Object.values(opts).indexOf('granted') >= 0) {
+						allowedCookies = allowedCookies.concat(['DSID','test_cookie','ar_debug','IDE','FPLC','_ga','_gac_*','_gid','_gat*','__utma','__utmb','__utmc','__utmt','__utmz','__utmv','AMP_TOKEN','FPID','GA_OPT_OUT','_ga_*','_dc_gtm_*','_gaexp','_gaexp_rc','_opt_awcid','_opt_awmid','_opt_awgid','_opt_awkid','_opt_utmc']);
+					}
+				}
+				if (Array.isArray(allowedCookies)) {
+					localStorage.setItem('allowedCookies', JSON.stringify(allowedCookies));
+				}
+
+				document.cookie = '__cookie_law__=' + cookieLaw + '; path=/; expires=Mon, 27 Apr 2026 12:06:25 GMT';
+
+				var items = ciCollectedCookies;
+				ciCollectedCookies = [];
+				items.forEach(function (item) {
+					d.cookie = item;
+				})
+			}
+		})(document);
+			</script>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Servizi</title>
+	<base href="" />
+	<link rel="canonical" href="index.html" />	
+	
+						<meta name="viewport" content="width=device-width, initial-scale=1" />
+					<meta name="description" content="Servizi" />
+			<meta name="keywords" content="Servizi" />
+			
+	<!-- Facebook Open Graph -->
+		<meta property="og:title" content="Servizi" />
+			<meta property="og:description" content="Servizi" />
+			<meta property="og:image" content="" />
+			<meta property="og:type" content="article" />
+			<meta property="og:url" content="https://www.lalegiunstraniera.com/Servizi/" />
+		<!-- Facebook Open Graph end -->
+
+		<meta name="generator" content="Website Builder" />
+			<script src="../js/common-bundle.js%3Fts=20250502120621" type="text/javascript"></script>
+	<script src="../js/a196594a806000396515136fb3a97d79-bundle.js%3Fts=20250502120621" type="text/javascript"></script>
+	<link href="../css/common-bundle.css%3Fts=20250502120621.css" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Cormorant:400,700&amp;subset=cyrillic,cyrillic-ext,latin,latin-ext,vietnamese" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin,latin-ext,vietnamese" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin,latin-ext,vietnamese" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=cyrillic,cyrillic-ext,latin,latin-ext,vietnamese" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,200,300,400,500,600,700,800,900&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin,latin-ext,vietnamese" rel="stylesheet" type="text/css" />
+	<link href="../css/a196594a806000396515136fb3a97d79-bundle.css%3Fts=20250502120621.css" rel="stylesheet" type="text/css" id="wb-page-stylesheet" />
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../gallery/favicons/favicon-120x120.png"><link rel="icon" type="image/png" sizes="120x120" href="../gallery/favicons/favicon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="152x152" href="../gallery/favicons/favicon-152x152.png"><link rel="icon" type="image/png" sizes="152x152" href="../gallery/favicons/favicon-152x152.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../gallery/favicons/favicon-180x180.png"><link rel="icon" type="image/png" sizes="180x180" href="../gallery/favicons/favicon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="../gallery/favicons/favicon-192x192.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../gallery/favicons/favicon-60x60.png"><link rel="icon" type="image/png" sizes="60x60" href="../gallery/favicons/favicon-60x60.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../gallery/favicons/favicon-76x76.png"><link rel="icon" type="image/png" sizes="76x76" href="../gallery/favicons/favicon-76x76.png"><link rel="icon" type="image/png" href="../gallery/favicons/favicon.png">
+	<script type="text/javascript">
+	window.useTrailingSlashes = true;
+	window.disableRightClick = false;
+	window.currLang = 'it';
+</script>
+		
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js"></script>
+	<![endif]-->
+
+		<script type="text/javascript">
+		$(function() {
+			if (window.gtag) {
+				window.gtag('consent', 'default', {
+					'ad_storage': document.cookieIsAllowed('gtag:ad_storage') ? 'granted' : 'denied',
+					'ad_user_data': document.cookieIsAllowed('gtag:ad_user_data') ? 'granted' : 'denied',
+					'ad_personalization': document.cookieIsAllowed('gtag:ad_personalization') ? 'granted' : 'denied',
+					'analytics_storage': document.cookieIsAllowed('gtag:analytics_storage') ? 'granted' : 'denied',
+					'wait_for_update': 500
+				});
+			}
+
+			
+			if (!document.cookie.match(/(?:^|;\ *)__cookie_law__=/)) {
+				var block = $('<div>')
+					.addClass('wb_cookie_policy')
+					.css({
+						backgroundColor: "rgba(0, 0, 0, 0.66)",
+						minHeight: "0%"					});
+				let policyMessage = $('<div class="policy-message">')
+						.html("<p>Utilizziamo i cookies per garantire una migliore esperienza online. Facendo clic di seguito e visitando il nostro sito web accetti i nostri termini contrattuali.<\/p>\n")
+						.css({
+							color: "#ffffff",
+							fontFamily: "Arial,Helvetica,sans-serif",
+							fontSize: 14						});
+				var btnWrapper = $('<div class="policy-button">');
+
+									policyMessage.appendTo(block);
+					btnWrapper.appendTo(block);
+				
+				var cookiePolicyButtonText = "Accetto";
+				var cookiePolicyRejectButtonText = "Rifiutare";
+				var cookiePolicyCustomizeButtonText = "personalizzare";
+				var cookiePolicyList = [];
+				if (window.gtag) {
+					cookiePolicyList = cookiePolicyList.concat([{"displayName":"Google Ad Storage","name":"gtag:ad_storage","description":"Consente l'archiviazione di informazioni, ad esempio cookie (web) o identificatori di dispositivi (app), correlate alla pubblicit\u00e0.","necessary":false},{"displayName":"Google User Data","name":"gtag:ad_user_data","description":"Imposta il consenso per l'invio dei dati utente a Google per scopi pubblicitari online.","necessary":false},{"displayName":"Google Personalization","name":"gtag:ad_personalization","description":"Imposta il consenso per la pubblicit\u00e0 personalizzata.","necessary":false},{"displayName":"Google Analytics Storage","name":"gtag:analytics_storage","description":"Consente l'archiviazione di informazioni, come cookie (web) o identificatori di dispositivi (app), correlate all'analisi, come la durata della visita.","necessary":false}]);
+				}
+				if (cookiePolicyList && cookiePolicyList.length) {
+					var modalHeader = $('<div>').addClass('modal-header')
+						.append(
+							$('<button>').addClass('close').attr('data-dismiss', 'modal').append(
+								$('<span aria-hidden="true">&times;</span>')
+							)
+						).append(
+							$('<h4>').text(cookiePolicyCustomizeButtonText)
+						);
+					var modalContent = $('<div>').addClass('modal-body').css({maxHeight: '80vh', overflow: 'auto'});
+
+					cookiePolicyList.map(function (cookie) {
+							modalContent.append(
+								$('<div>')
+									.attr('data-cookies', cookie.name)
+									.addClass('checkbox material-switch')
+									.append(
+										$('<input>')
+											.attr('id', 'cookie' + cookie.name)
+											.attr('type', 'checkbox')
+											.attr('value', 1)
+											.attr('checked', true)
+											.attr('name', cookie.name)
+											.attr('disabled', cookie.necessary ? true : null)
+									)
+									.append($('<label>')
+										.attr('for', 'cookie' + cookie.name)
+									)
+									.append(
+										$('<div>')
+											.addClass('text-left material-switch-label')
+											.append(
+												$('<div>')
+													.css({display: 'inline-block', textAlign: 'left'})
+													.append(cookie.name ?
+														$('<b>')
+															.text(cookie.displayName ? cookie.displayName : cookie.name)
+															.append(cookie.necessary ? '<i class="fa fa-asterisk" style="color: red;margin-left: 0.5em;font-size: 0.7em;vertical-align: super;" aria-hidden="true"></i>' : '')
+														: ''
+													)
+													.append(cookie.description ? $('<p>').addClass('small').html(cookie.description) : '')
+											)
+									)
+							);
+					});
+					var modalFooter = $('<div>').addClass('modal-footer').append(
+						$('<button type="submit" class="btn btn-primary"></button>')
+							.text(cookiePolicyButtonText)
+					);
+					var modal = $('<div>').addClass('modal cookie-policy-modal fade').attr('role', 'dialog').append(
+						$('<div>').addClass('modal-dialog modal-md').attr('role', 'document').append(
+							$('<form id="customCookiesForm">').addClass('modal-content form-horizontal')
+								.append(modalHeader)
+								.append(modalContent)
+								.append(modalFooter)
+								.submit(function (e) {
+									e.preventDefault();
+
+									var names = cookiePolicyList.filter(cookie => cookie.necessary).map(function (field) {
+										return field.name.split(',').map(function (item) { return item.trim(); });
+									}).flat();
+
+									var selectedNames = $(e.target).serializeArray().map(function (field) {
+										if (typeof field.name === 'string') {
+											return field.name.split(',').map(function (item) { return item.trim(); });
+										}
+										return field.name;
+									}).flat();
+
+									if (document.cookieChangedCategories) {
+										document.cookieChangedCategories(1, names.concat(selectedNames));
+									}
+
+									modal.modal('hide');
+									modal.on('hidden.bs.modal', function () {
+										block.remove();
+									});
+
+									document.location.reload();
+									return false;
+								})
+						)
+					).appendTo('body');
+				}
+
+				if (cookiePolicyRejectButtonText) {
+				$('<button>')
+						.attr({type: 'button'})
+						.css({
+							backgroundColor: "#cccccc",
+							color: "#ffffff",
+							fontFamily: "Arial,Helvetica,sans-serif",
+							fontSize: 14,
+							marginRight: '5px',
+							marginLeft: '5px'
+						})
+						.text(cookiePolicyRejectButtonText)
+						.on('click', function() {
+							if (cookiePolicyList && cookiePolicyList.length && cookiePolicyCustomizeButtonText) {
+								var names = cookiePolicyList.filter(cookie => cookie.necessary).map(function (field) {
+									return field.name.split(',').map(function (item) { return item.trim(); });
+								}).flat();
+								// Save only required cookies
+								if (document.cookieChangedCategories) document.cookieChangedCategories(1, names);
+							} else {
+								// Save no cookies
+								if (document.cookieChangedCategories) document.cookieChangedCategories(0);
+							}
+
+							block.remove();
+							document.location.reload();
+						})
+						.appendTo(btnWrapper);
+				}
+
+				if (cookiePolicyList && cookiePolicyList.length && cookiePolicyCustomizeButtonText) {
+					$('<button>')
+						.attr({type: 'button'})
+						.css({
+							backgroundColor: "#5cb85c",
+							color: "#ffffff",
+							fontFamily: "Arial,Helvetica,sans-serif",
+							fontSize: 14,
+							marginRight: '5px',
+							marginLeft: '5px'
+						})
+						.text(cookiePolicyCustomizeButtonText)
+						.on('click', function () {
+							modal.modal('toggle');
+						})
+						.appendTo(btnWrapper);
+				}
+
+				if (cookiePolicyButtonText) {
+					$('<button>')
+						.attr({type: 'button'})
+						.css({
+							backgroundColor: "#5cb85c",
+							color: "#ffffff",
+							fontFamily: "Arial,Helvetica,sans-serif",
+							fontSize: 14,
+							marginRight: '5px',
+							marginLeft: '5px'
+						})
+						.text(cookiePolicyButtonText)
+						.on('click', function () {
+							if ($('#customCookiesForm').length) {
+								$('#customCookiesForm').submit();
+								return;
+							}
+
+							if (document.cookieChangedCategories) {
+								document.cookieChangedCategories(1);
+							}
+
+							block.remove();
+							document.location.reload();
+						})
+						.appendTo(btnWrapper);
+				}
+
+				$(document.body).append(block);
+
+                if (block.height() >= $(window).height() * 0.4) {
+                    block.addClass('center');
+                }
+			}
+		});
+	</script>
+		<script type="text/javascript">
+		$(function () {
+});    </script>
+</head>
+
+
+<body class="site site-lang-it " ><div id="wb_root" class="root wb-layout-vertical"><div class="wb_sbg"></div><div id="wb_header_a196594a806000396515136fb3a97d79" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-vertical"><div id="a188dd9be6670223bb995d3260e88e1d" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-vertical"><div id="a188dd9be66703d5a72e8f899c291a7f" class="wb_element wb-anim-entry wb-anim wb-anim-fade-in-none wb-layout-element" data-plugin="LayoutElement" data-wb-anim-entry-time="0.6" data-wb-anim-entry-delay="0"><div class="wb_content wb-layout-horizontal"><div id="a188dd9be66704adba46f257a82a6049" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-horizontal"><div id="a188dd9be66705648dcb0320c6702bb7" class="wb_element wb_element_picture" data-plugin="Picture" title=""><div class="wb_picture_wrap"><div class="wb-picture-wrapper"><a href="../index.html"><img loading="lazy" alt="" src="../gallery_gen/57f1d3f3739e93d70bca5e34866627c8_150x150_fit.png%3Fts=1746176785"></a></div></div></div><div id="a188dd9be66706ae4556c212e75f7f73" class="wb_element wb_text_element" data-plugin="TextArea" style=" line-height: normal;"><h4 class="wb-stl-pagetitle">La Legiun Straniera </h4>
+</div></div></div><div id="a18b6183c67000ef27f8897576bb136c" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-horizontal"><div id="a188dd9be6670786f371ab6cd3aaf4aa" class="wb_element wb-menu wb-prevent-layout-click wb-menu-mobile" data-plugin="Menu"><a class="btn btn-default btn-collapser"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><ul class="hmenu" dir="ltr"><li><a href="../index.html">Home</a></li><li><a href="../index.html#Rooms">Le Camere</a></li><li><a href="../index.html#Reservations">Prenotazioni</a></li><li><a href="../La-nostra-Storia-1/index.html">La nostra Storia</a></li><li class="wb_this_page_menu_item active"><a href="index.html">Servizi</a><ul><li><a href="../Regolamento/index.html">Regolamento</a></li></ul></li></ul><div class="clearfix"></div></div><div id="a188dd9be667080f105ef5c869a7ef9c" class="wb_element" data-plugin="Button"><a class="wb_button" href="../Contatti/index.html"><span>Contatti</span></a></div></div></div></div></div><div id="a188dd9be66709aecdaeca39fb6091a2" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-horizontal"><div id="a188dd9be6670ac8287209b95f883cc0" class="wb_element wb-anim-entry wb-anim wb-anim-fade-in-none wb-layout-element" data-plugin="LayoutElement" data-wb-anim-entry-time="0.6" data-wb-anim-entry-delay="0"><div class="wb_content wb-layout-vertical"><div id="a188dd9be6670b1e8a37a8b1ffd3dbe0" class="wb_element wb_text_element" data-plugin="TextArea" style=" line-height: normal;"><h1 class="wb-stl-heading1" style="text-align: center;">    Casa Vacanze                "La Legiun Straniera"</h1>
+</div><div id="a195f78b34bb00888da12a4a554472a7" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-vertical"></div></div><div id="a188dd9be6670cc8a3604d414e94c1a0" class="wb_element wb_text_element" data-plugin="TextArea" style=" line-height: normal;"><h5 class="wb-stl-subtitle">Il tuo alloggio vacanza a Fontanelle di Boves (CN)</h5>
+</div><div id="a196594c675a00fc8c9700f6aa6f08b3" class="wb_element wb-anim-entry wb-anim wb-anim-fade-in-none wb-layout-element" data-plugin="LayoutElement" data-wb-anim-entry-time="0.6" data-wb-anim-entry-delay="0"><div class="wb_content wb-layout-horizontal"><div id="a196594c3460007b40135af6dd338843" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-vertical"></div></div></div></div><div id="a188dd9be6670d8b2cf48d4ed526cd07" class="wb_element" data-plugin="Button"><a class="wb_button" href="../La-nostra-Storia-1/index.html"><span>Chi siamo</span></a></div></div></div></div></div></div></div></div></div><div id="wb_main_a196594a806000396515136fb3a97d79" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-vertical"><div id="a196594d0f93007e9da7a447e1e21eb4" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-horizontal"><div id="a1965956a31e00c8414a0cbf9ca919ac" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-horizontal"><div id="a19659946f260039d73f4653c1702bf7" class="wb_element wb_text_element" data-plugin="TextArea" style=" line-height: normal;"><h3 class="wb-stl-heading3" style="text-align: center;">                                                                                                     SERVIZI</h3>
+
+<p> </p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">🛎️ Servizi offerti –  LA LEGIUN STRANIERA</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">✨ Comfort e praticità per il tuo soggiorno</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">Gli ospiti apprezzano in particolare:</p>
+
+<p class="wb-stl-custom14">🚗 Parcheggio gratuito</p>
+
+<p class="wb-stl-custom14">🚭 Camere non fumatori</p>
+
+<p class="wb-stl-custom14">📶 Wi-Fi incluso</p>
+
+<p class="wb-stl-custom14">🛁 Bagno privato</p>
+
+<p class="wb-stl-custom14">📺 TV a schermo piatto</p>
+
+<p class="wb-stl-custom14">🍳 Angolo cottura attrezzato</p>
+
+<p class="wb-stl-custom14">🧺 Lavatrice</p>
+
+<p class="wb-stl-custom14">🌅 Balcone o terrazza con vista</p>
+
+<p class="wb-stl-custom14">🚘 Parcheggio</p>
+
+<p class="wb-stl-custom14">Parcheggio privato e gratuito disponibile direttamente in loco.</p>
+
+<p class="wb-stl-custom14">Non è richiesta prenotazione.</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">📶 Connessione Internet</p>
+
+<p class="wb-stl-custom14">Wi-Fi gratuito disponibile in alcune camere.</p>
+
+<p class="wb-stl-custom14">💡 Ti consigliamo di chiedere conferma al momento del check-in.</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">🍽️ Cucina e zona pranzo</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">L’alloggio dispone di tutto il necessario per sentirsi a casa:</p>
+
+<p class="wb-stl-custom14">Tavolo da pranzo</p>
+
+<p class="wb-stl-custom14">Macchina da caffè ☕</p>
+
+<p class="wb-stl-custom14">Piano cottura e forno</p>
+
+<p class="wb-stl-custom14">Frigorifero e lavastoviglie</p>
+
+<p class="wb-stl-custom14">Utensili da cucina</p>
+
+<p class="wb-stl-custom14">Angolo cottura funzionale</p>
+
+<p class="wb-stl-custom14">Lavatrice</p>
+
+<p class="wb-stl-custom14">🛏️ Zona notte</p>
+
+<p class="wb-stl-custom14">Lenzuola fornite</p>
+
+<p class="wb-stl-custom14">Ampio armadio o guardaroba</p>
+
+<p class="wb-stl-custom14">🚿 Bagno privato</p>
+
+<p class="wb-stl-custom14">Asciugamani</p>
+
+<p class="wb-stl-custom14">Doccia o vasca</p>
+
+<p class="wb-stl-custom14">WC, bidet</p>
+
+<p class="wb-stl-custom14">Asciugacapelli</p>
+
+<p class="wb-stl-custom14">🛋️ Zona giorno</p>
+
+<p class="wb-stl-custom14">Zona pranzo</p>
+
+<p class="wb-stl-custom14">Comodo divano</p>
+
+<p class="wb-stl-custom14">Scrivania per lavorare o leggere</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">📺 Media e Tecnologia</p>
+
+<p class="wb-stl-custom14">TV a schermo piatto per rilassarti con i tuoi programmi preferiti</p>
+
+<p class="wb-stl-custom14">🔌 Servizi extra in camera</p>
+
+<p class="wb-stl-custom14">Presa elettrica vicino al letto 🔌</p>
+
+<p class="wb-stl-custom14">Stendibiancheria</p>
+
+<p class="wb-stl-custom14">Pavimenti in marmo o piastrelle</p>
+
+<p class="wb-stl-custom14">Ingresso indipendente</p>
+
+<p class="wb-stl-custom14">Riscaldamento</p>
+
+<p class="wb-stl-custom14">Ferro e asse da stiro</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">🚶‍♂️ Accessibilità</p>
+
+<p class="wb-stl-custom14">I piani superiori sono accessibili solo tramite scale</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">🌿 Spazi esterni</p>
+
+<p class="wb-stl-custom14">Balcone o terrazza privata</p>
+
+<p class="wb-stl-custom14">Vista su giardino, montagna o cortile interno</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">🏠 Edificio</p>
+
+<p class="wb-stl-custom14">Alloggio completamente indipendente</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">Struttura interamente <u><strong>non</strong></u> fumatori</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">🌍 Lingue parlate</p>
+
+<p class="wb-stl-custom14">🇮🇹 Italiano</p>
+
+<p class="wb-stl-custom14">🇬🇧 Inglese</p>
+
+<p class="wb-stl-custom14">🇪🇸 Spagnolo</p>
+
+<p class="wb-stl-custom14">🇫🇷 Francese</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">NB: Ricordiamo che la struttura riceve nel periodo stagionale marzo - ottobre, nel periodo invernale si valutano soltanto soggiorni superiori ai <u><strong>15</strong></u> giorni.</p>
+
+<p class="wb-stl-custom14"> </p>
+
+<p class="wb-stl-custom14">                                                                                                                        Grazie</p>
+
+<p class="wb-stl-custom14">                                                                                                                Oscar e Patrizia</p>
+
+<p class="wb-stl-custom14"> </p>
+</div></div></div></div></div></div></div><div id="wb_footer_a196594a806000396515136fb3a97d79" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-vertical"><div id="a19659b0996100331f7b4c049c00c2cc" class="wb_element wb-elm-orient-horizontal" data-plugin="Line"><div class="wb-elm-line"></div></div><div id="a188dd9be667399effd2164c2b6a1286" class="wb_element wb-anim-entry wb-anim wb-anim-fade-in-none wb-layout-element" data-plugin="LayoutElement" data-wb-anim-entry-time="0.6" data-wb-anim-entry-delay="0"><div class="wb_content wb-layout-horizontal"><div id="a195f73266fc00fa7540591519b3119e" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-vertical"><div id="a195f73266fc01176d29c39bb2bb6e5a" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-horizontal"><div id="a195f73266fc0217282ba229d0ac182a" class="wb_element wb_element_shape" data-plugin="Shape"><div class="wb_shp"></div></div><div id="a195f73266fc0346d1490debce3db1f6" class="wb_element wb_element_shape" data-plugin="Shape"><div class="wb_shp"></div></div><div id="a195f73266fc04f145ad3bc78c0d97a5" class="wb_element wb_element_shape" data-plugin="Shape"><div class="wb_shp"></div></div><div id="a195f73266fc05bc65c51bba8625f048" class="wb_element wb_element_shape" data-plugin="Shape"><div class="wb_shp"></div></div><div id="a195f73266fc06f8a7cdb7137f072051" class="wb_element wb_element_shape" data-plugin="Shape"><div class="wb_shp"></div></div></div></div><div id="a195f73266fc0729ae672b36e6f425ab" class="wb_element wb_text_element" data-plugin="TextArea" style=" line-height: normal;"><h3 class="wb-stl-custom6" style="text-align: center;">La Legiun Straniera</h3>
+</div><div id="a195f73266fc0838758bb0adb941e605" class="wb_element" data-plugin="Button"><a class="wb_button" href="../Contatti/index.html"><span>Info &amp; Contatti</span></a></div><div id="a195f73266fc09b9220e8af8f3d27b1c" class="wb_element wb_text_element" data-plugin="TextArea" style=" line-height: normal;"><h3 class="wb-stl-custom6" style="text-align: center;"><span style="color:rgba(255,255,255,1);">Vi aspettiamo a Fontanelle di Boves (CN)</span></h3>
+</div><div id="a195f73266fc0ac4250305492363dc0d" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-horizontal"><div id="a195f73266fc0bcbd0454f8c91826cc7" class="wb_element wb_element_picture" data-plugin="Picture" title=""><div class="wb_picture_wrap"><div class="wb-picture-wrapper"><img loading="lazy" alt="" src="../gallery/logo_twitter_white-ts1699865142%201-ts1699952155.svg%3Fts=1746176785"></div></div></div><div id="a195f73266fc0cd667e359857fe13824" class="wb_element wb_element_picture" data-plugin="Picture" title=""><div class="wb_picture_wrap" style="height: 100%"><div class="wb-picture-wrapper" style="overflow: visible; display: flex"><a href="https://www.facebook.com/profile.php?id=61575559647722"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="auto" viewBox="0 0 1793.982 1793.982" style="direction: ltr; color:#ffffff"><text x="385.501415" y="1537.02" font-size="1792" fill="currentColor" style='font-family: "FontAwesome"'></text></svg></a></div></div></div><div id="a195f73266fc0d044c1883a913b39b86" class="wb_element wb_element_picture" data-plugin="Picture" title=""><div class="wb_picture_wrap" style="height: 100%"><div class="wb-picture-wrapper" style="overflow: visible; display: flex"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="auto" viewBox="0 0 1793.982 1793.982" style="direction: ltr; color:#ffffff"><text x="129.501415" y="1537.02" font-size="1792" fill="currentColor" style='font-family: "FontAwesome"'></text></svg></div></div></div></div></div><div id="a195f73266fc0fc2f6ac3f7e4f288db9" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-horizontal"><div id="a195f73266fc107563ed1f67a1293544" class="wb_element wb_text_element" data-plugin="TextArea" style=" line-height: normal;"><h5 class="wb-stl-custom5">© lalegiunstraniera</h5>
+</div><div id="a195f73266fc1130c32c9de300839004" class="wb_element wb_text_element" data-plugin="TextArea" style=" line-height: normal;"><h5 class="wb-stl-custom5">2025 - <a data-_="Link" href="https://www.lalegiunstraniera.com/hjjtytttt">by </a><u><a data-_="Link" href="https://www.assemblercomputer.net/">Assembler Computer</a></u></h5>
+</div></div></div></div></div></div></div><div id="a195f8229bb2008feb827647c748f77c" class="wb_element wb-sticky wb-layout-element" data-plugin="LayoutElement" data-h-align="right" data-v-align="bottom"><div class="wb_content wb-layout-vertical"><div id="a195f8229bb20192cc1509a79a50cbad" class="wb_element wb_element_picture" data-plugin="Picture" title=""><div class="wb_picture_wrap"><div class="wb-picture-wrapper" style="overflow: visible; display: flex"><a onclick="window.scrollTo({top: 0, behavior: 'smooth'});" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="auto" height="64" viewBox="0 0 1793.982 1793.982" style="direction: ltr; color:#000000"><text x="129.501415" y="1537.02" font-size="1792" fill="currentColor" style='font-family: "FontAwesome"'></text></svg></a></div></div></div></div></div><div id="a195f735c2ad005e0cf69ed04a17537c" class="wb_element wb-layout-element" data-plugin="LayoutElement"><div class="wb_content wb-layout-horizontal"><div id="a195f735668900e3ada9fb63a23f4e6f" class="wb_element wb_text_element" data-plugin="TextArea" style=" line-height: normal;"><p>Numero di licenza: IT 004028C2OYO7CH89</p>
+</div></div></div><div id="wb_footer_c" class="wb_element" data-plugin="WB_Footer" style="text-align: center; width: 100%;"><div class="wb_footer"></div><script type="text/javascript">
+			$(function() {
+				var footer = $(".wb_footer");
+				var html = (footer.html() + "").replace(/^\s+|\s+$/g, "");
+				if (!html) {
+					footer.parent().remove();
+					footer = $("#footer, #footer .wb_cont_inner");
+					footer.css({height: ""});
+				}
+			});
+			</script></div></div></div></div></body>
+</html>
